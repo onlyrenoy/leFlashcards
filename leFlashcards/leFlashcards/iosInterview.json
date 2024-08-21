@@ -1,0 +1,606 @@
+[
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "What is the difference between Static and Class Variable?",
+        "Answer": "A static variable belongs to the type itself, meaning it's shared across all instances of the type. A class variable (declared with 'class' keyword) is also shared among all instances, but it can be overridden by subclasses.",
+        "Example": "Imagine a blueprint for a building: 'static' is like the blueprint itself—unchangeable and the same for all buildings created from it. 'class' is like a template that can be customized for each specific building."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Are lazy vars computed more than once?",
+        "Answer": "No, a lazy variable is computed only once. After the first computation, the result is stored and returned directly in subsequent accesses.",
+        "Example": "Think of a lazy variable as a coffee machine: the first cup takes time to brew, but once the coffee is made, the same pot is served to everyone until it's empty."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Explain the use of defer keyword in Swift.",
+        "Answer": "The 'defer' keyword is used to schedule a block of code to be executed just before the current scope exits, regardless of how the scope is exited (normal return, error, etc.).",
+        "Example": "Imagine you’re packing for a trip. 'defer' is like setting an alarm to remind you to double-check your passport and tickets right before you leave the house—no matter what, you'll make sure you have everything before stepping out the door."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "How to implement a property which is public/internal but mutation is private?",
+        "Answer": "You can use a combination of public/internal get and private(set) to achieve this. The property is publicly accessible but can only be modified within the defining type.",
+        "Example": "Imagine you have a public library that everyone can visit (public access), but only the librarian can add or remove books from the shelves (private modification)."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Explain the impact of Inheritance vs Protocol Conformance on runtime performance.",
+        "Answer": "Inheritance introduces some runtime overhead due to the dynamic dispatch mechanism (via vtable) used for method lookup. Protocol conformance can also introduce overhead if the protocol uses dynamic dispatch, but it's generally less costly since Swift tries to optimize protocol methods via static dispatch (using Witness Tables) when possible.",
+        "Example": "Inheritance is like having a large organizational chart where everyone checks with their manager before acting. Protocols, on the other hand, are like pre-defined roles where each person knows their tasks without needing approval—it's generally faster and more efficient."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Explain CaseIterable protocol in Swift.",
+        "Answer": "The CaseIterable protocol provides a collection of all cases of an enum that conform to it. This is particularly useful for enumerating through all cases of an enum.",
+        "Example": "Consider a deck of cards where each suit (hearts, spades, clubs, diamonds) is represented as a case. CaseIterable allows you to easily gather all the suits in one hand and deal them out as needed."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "What is the difference between self and Self?",
+        "Answer": "'self' refers to the current instance of a class, struct, or enum within its methods. 'Self' refers to the type itself, typically used in protocols and generics.",
+        "Example": "'self' is like referring to yourself in a conversation—\"I am going to the store.\" 'Self' is like referring to your role or title—\"The CEO will address the company.\""
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Can all types be marked as final in Swift? If so, what does it mean?",
+        "Answer": "In Swift, classes can be marked as 'final', which means they cannot be subclassed. Structs and enums are implicitly final because they don't support inheritance.",
+        "Example": "Marking a class as 'final' is like declaring, \"This design is set in stone—no alterations allowed.\" It ensures that no one can create a version of it with different characteristics."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Explain the purpose of the 'mutating' keyword in Swift.",
+        "Answer": "The 'mutating' keyword allows methods in value types (structs and enums) to modify the instance's properties. Without this keyword, value type methods cannot change the instance's state.",
+        "Example": "Think of a struct as a sealed envelope. To change its contents, you need the 'mutating' keyword, like needing permission to open and reseal the envelope after making changes."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "What is the difference between CFBundleVersion and CFBundleShortVersionString?",
+        "Answer": "CFBundleVersion is the build number of the app, typically used for internal tracking. CFBundleShortVersionString is the user-visible version number.",
+        "Example": "CFBundleVersion is like the internal edition number of a book, tracking every minor revision. CFBundleShortVersionString is the version printed on the cover, like 'First Edition' or 'Second Edition'."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Explain the use of AssociatedType in Protocols.",
+        "Answer": "AssociatedType allows a protocol to define a placeholder type that must be specified by conforming types. This enables generic-like functionality in protocols.",
+        "Example": "Think of AssociatedType as a blank name tag at a conference. Each attendee writes their own name on the tag, making it specific to them while following the general 'name tag' protocol."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "What is a Memberwise initialiser and why don’t Swift classes have one?",
+        "Answer": "A memberwise initializer is automatically synthesized by Swift for structs that don't have custom initializers, allowing you to initialize all properties via parameters. Swift classes don't have a memberwise initializer because class initializers are inherited, and the automatic synthesis could lead to ambiguity in inheritance scenarios.",
+        "Example": "A memberwise initializer is like getting a pre-packed lunch with every item you need. Classes, however, require you to customize your lunch based on what was prepared before and what you need now."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "How to create optional methods in protocol?",
+        "Answer": "In Swift, optional methods in protocols can be implemented using protocol extensions or by using '@objc' with protocols that are restricted to class types.",
+        "Example": "Optional methods in a protocol are like suggesting activities for a group. Some people might join in (implement the method), while others might opt out without disrupting the group’s overall plan."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Why is Swift called a protocol-oriented programming language?",
+        "Answer": "Swift emphasizes the use of protocols to define behavior, allowing for greater flexibility and reuse compared to inheritance-based OOP. Protocol extensions provide default implementations, which enables a mix of concrete and abstract behavior.",
+        "Example": "Think of protocols as blueprints for different types of buildings. Each building follows the blueprint but can look completely different in the end—yet they all fulfill the same purpose."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Explain how Swift is a type-safe language.",
+        "Answer": "Swift is type-safe because it enforces strict type-checking at compile-time, preventing type errors. Variables must be explicitly typed or inferred by the compiler, ensuring that only the correct data types are used.",
+        "Example": "Type safety in Swift is like ensuring that all ingredients in a recipe are correctly measured and matched, preventing you from accidentally using salt instead of sugar."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "What are Subscripts in Swift?",
+        "Answer": "Subscripts are a way to access elements in a collection, list, or sequence using index notation. They can be defined for custom types to provide similar functionality.",
+        "Example": "Subscripts are like numbered mailboxes in an apartment building. You use the mailbox number (index) to get the mail (value) inside."
+    },
+    {
+        "Category": "Swift Fundamentals",
+        "Question": "Can a class inherit from a struct? If not, why?",
+        "Answer": "No, a class cannot inherit from a struct because inheritance is a feature reserved for classes. Structs are value types, and Swift does not support inheritance for value types.",
+        "Example": "Classes are like businesses with a hierarchy, where roles can be inherited. Structs are like independent contractors—they work alone without inheriting roles or responsibilities from others."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "What are the different states of UIViewController?",
+        "Answer": "A UIViewController transitions through various states in its lifecycle: 'loaded' (viewDidLoad), 'appearing' (viewWillAppear), 'appeared' (viewDidAppear), 'disappearing' (viewWillDisappear), and 'disappeared' (viewDidDisappear). Each state corresponds to a method that allows you to react to changes.",
+        "Example": "Imagine preparing for a performance: 'loaded' is when you've rehearsed and know your lines, 'appearing' is stepping on stage, 'appeared' is delivering your lines, 'disappearing' is exiting the stage, and 'disappeared' is when you're back in the dressing room."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "What are the differences between clipsToBounds and masksToBounds?",
+        "Answer": "'clipsToBounds' is a property of UIView that restricts the view's content within its bounds. 'masksToBounds' is a similar property of CALayer that does the same, but it also affects sublayers and applied masks.",
+        "Example": "Think of 'clipsToBounds' like closing the curtains in a room to hide what's inside—no one can see beyond the window's frame. 'masksToBounds' is like putting a mask on a painting to ensure paint stays within the desired area."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "What is the difference between Frame and Bounds?",
+        "Answer": "'Frame' refers to the position and size of a view in its superview's coordinate system. 'Bounds' refers to the view's own coordinate system, determining its internal drawing space.",
+        "Example": "If a picture frame (view) is hung on a wall (superview), the 'frame' is the picture's position and size on the wall, while the 'bounds' are the edges of the picture itself, no matter where it's hung."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "What is the difference between setNeedsLayout() and layoutIfNeeded()?",
+        "Answer": "'setNeedsLayout()' marks the view as needing a layout update, but the update doesn't happen immediately. 'layoutIfNeeded()' forces the layout update immediately if any layout changes are pending.",
+        "Example": "Think of 'setNeedsLayout()' as putting a task on your to-do list—you're acknowledging it needs to be done. 'layoutIfNeeded()' is like dropping everything to complete the task right away."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "How does Auto Layout work in iOS?",
+        "Answer": "Auto Layout is a constraint-based system that dynamically calculates the size and position of views based on defined rules and relationships, ensuring that the UI adapts to different screen sizes and orientations.",
+        "Example": "Auto Layout is like a tailor adjusting a suit to fit different body shapes and sizes, making sure that everything looks proportional and well-fitted no matter who's wearing it."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "You have a complex layout that needs to be dynamically resized based on the device's screen size. How would you use Auto Layout to ensure that the layout is always correct?",
+        "Answer": "Use Auto Layout constraints to define relationships between your views, such as setting proportional widths, equal spacing, and anchoring to the superview's edges. Constraints should be flexible enough to allow the layout to adapt seamlessly to different screen sizes and orientations.",
+        "Example": "Designing a responsive webpage that rearranges its content automatically depending on the size of the browser window ensures it looks good on any screen, just like Auto Layout adjusts your UI for different devices."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "How does memory usage optimization happen in UITableView?",
+        "Answer": "UITableView optimizes memory usage through cell reuse. Instead of creating new cells for every item, it reuses cells that are no longer visible. This reduces memory footprint and improves performance.",
+        "Example": "Imagine running a hotel with a limited number of rooms. Instead of building a new room for each guest, you clean and reuse the same rooms for new guests—this is how UITableView manages cells."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "What is the difference between UIView and CALayer?",
+        "Answer": "UIView is responsible for handling user interactions and managing the visual content. CALayer is the underlying mechanism that handles the actual drawing of visual content. Views are higher-level, while layers provide fine-grained control over rendering and animations.",
+        "Example": "Think of UIView as a house, with CALayer being the foundation. The house (UIView) determines where you can live, but the foundation (CALayer) is what the house is built upon, giving it structure and stability."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "What does UIApplicationMain mean?",
+        "Answer": "UIApplicationMain is the entry point for an iOS app. It sets up the application object, creates the main event loop, and starts the app's lifecycle. This function is responsible for launching your app.",
+        "Example": "UIApplicationMain is like the opening bell at a trading floor—it starts the activity and signals that all systems should be running."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "How do you implement dynamic type and font scaling in an iOS app?",
+        "Answer": "To implement dynamic type, use UIFont with the 'preferredFont(forTextStyle:)' method and enable the 'adjustsFontForContentSizeCategory' property on your UI elements. This allows the font to scale automatically with the user's chosen text size.",
+        "Example": "Dynamic type is like having adjustable glasses that automatically change their focus based on what you're reading, ensuring everything is always clear no matter your preference."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "Explain the concept of the Responder Chain in iOS.",
+        "Answer": "The Responder Chain is a hierarchy of objects that can respond to user events, such as touches and keyboard inputs. If an event isn't handled by the first responder, it passes up the chain until it's either handled or discarded.",
+        "Example": "Think of the Responder Chain as a series of managers in a company. If one manager can't solve a problem, they escalate it to the next higher-up until it reaches someone who can address it."
+    },
+    {
+        "Category": "UIKit Fundamentals",
+        "Question": "Explain the concept of trait collections and size classes in iOS. How do they work together to create adaptive user interfaces for different devices and orientations?",
+        "Answer": "Trait collections and size classes provide a way to adapt your app's layout to different environments (e.g., device types, orientations). Size classes describe the horizontal and vertical space available, while trait collections provide additional context like display scale or interface style.",
+        "Example": "Creating adaptive interfaces with trait collections and size classes is like designing a piece of clothing that can fit any body type—whether someone is tall, short, wide, or narrow, the clothing adjusts to suit their size and style."
+    },
+    {
+        "Category": "SwiftUI Fundamentals",
+        "Question": "What is the difference between @StateObject and @ObservedObject in SwiftUI?",
+        "Answer": "@StateObject is used when you want SwiftUI to own the lifecycle of an observable object, meaning the object is created and maintained by the view. @ObservedObject is used when the observable object is created and managed outside of the view, and the view only observes changes to it.",
+        "Example": "Imagine @StateObject as a plant that you own and take care of, while @ObservedObject is like a plant you’re borrowing from a neighbor—you can observe its growth, but you’re not responsible for its overall care."
+    },
+    {
+        "Category": "SwiftUI Fundamentals",
+        "Question": "What does the @Published property wrapper do in SwiftUI?",
+        "Answer": "The @Published property wrapper is used in a class to mark a property that, when changed, will notify any subscribers (like views using @ObservedObject or @StateObject) so they can update themselves in response to the change.",
+        "Example": "Think of @Published as a bulletin board. Whenever someone posts a new notice (changes the property), everyone who’s subscribed to the board (views) immediately sees the new information."
+    },
+    {
+        "Category": "SwiftUI Fundamentals",
+        "Question": "Discuss the benefits and limitations of using SwiftUI for building user interfaces.",
+        "Answer": "SwiftUI offers a declarative syntax, tight integration with Swift, and live previews, making UI development faster and more intuitive. However, it’s still evolving, with limitations in customization and a steeper learning curve for complex designs.",
+        "Example": "Using SwiftUI is like cooking with a brand-new, state-of-the-art kitchen. It’s highly efficient and makes certain tasks easier, but there are some tools missing or not yet refined, so you might occasionally need to rely on your old, trusty gadgets."
+    },
+    {
+        "Category": "Modularisation",
+        "Question": "How to modularise the codebase and why is it important?",
+        "Answer": "Modularising the codebase involves splitting it into smaller, independent modules or components. This promotes code reusability, easier testing, better maintainability, and allows multiple teams to work on different parts of the codebase simultaneously.",
+        "Example": "Think of your codebase as a LEGO set. Modularisation is like dividing the set into individual blocks, each with its specific role. This makes it easier to build, replace, or repair parts of the structure without dismantling the entire model."
+    },
+    {
+        "Category": "Modularisation",
+        "Question": "What is Dependency Injection and what are its advantages?",
+        "Answer": "Dependency Injection is a design pattern where an object receives its dependencies from an external source rather than creating them itself. This promotes loose coupling, easier testing, and greater flexibility in the code.",
+        "Example": "Imagine you're assembling a car. Instead of building each part yourself (engine, tires), you receive pre-made parts from different suppliers. This allows you to focus on the assembly process while ensuring that the parts can be easily replaced or upgraded."
+    },
+    {
+        "Category": "Error Handling",
+        "Question": "Explain the difference between throws and rethrows in Swift.",
+        "Answer": "The 'throws' keyword is used to declare that a function can throw an error, while 'rethrows' is used when a function only throws an error if one of the functions it calls throws an error.",
+        "Example": "Throws is like a warning label on a product that says 'Handle with care, fragile!' Rethrows is like saying 'This product is fragile only if the contents are fragile.'"
+    },
+    {
+        "Category": "Error Handling",
+        "Question": "Difference between Array and NSArray.",
+        "Answer": "Array is a type-safe, generic collection in Swift, whereas NSArray is an Objective-C class that can hold any type of object but lacks type safety and generics. Arrays are more efficient and provide better performance in Swift.",
+        "Example": "Array is like a well-organized toolbox where every tool has its specific slot, ensuring you always know what you're grabbing. NSArray is like a big bag of tools—you might find what you need, but it takes longer, and you have to check each tool carefully."
+    },
+    {
+        "Category": "Networking",
+        "Question": "Explain the types of sessions and tasks supported by URLSession class.",
+        "Answer": "URLSession supports three types of sessions: Default, Ephemeral, and Background. Default session persists cookies, caches, and credentials. Ephemeral session does not store any data, and Background session allows downloads and uploads to happen even when the app is not running in the foreground.",
+        "Example": "Imagine three kinds of shopping experiences: a regular store where you can shop and leave your cart (Default), a quick store where nothing you touch is saved (Ephemeral), and a store that continues to pack your goods even after you’ve left (Background)."
+    },
+    {
+        "Category": "Networking",
+        "Question": "How to track image download progress in iOS?",
+        "Answer": "You can track image download progress using URLSession’s download tasks by implementing the URLSessionDownloadDelegate. This delegate provides updates on download progress and allows you to handle the data as it arrives.",
+        "Example": "Tracking download progress is like following a live GPS route on a road trip, where you continuously receive updates on how much farther you need to go until you reach your destination."
+    },
+    {
+        "Category": "Frameworks & Libraries",
+        "Question": "Compare static and dynamic libraries.",
+        "Answer": "Static libraries are linked at compile time and become part of the final executable, resulting in faster startup times. Dynamic libraries are linked at runtime, allowing for smaller executables and updates without recompilation.",
+        "Example": "Think of static libraries as pre-installed apps on your phone—they're always there and ready to go. Dynamic libraries are like apps you download from the app store as needed."
+    },
+    {
+        "Category": "Frameworks & Libraries",
+        "Question": "What is the purpose of Core Location framework?",
+        "Answer": "The Core Location framework is used to obtain the geographic location and orientation of a device, allowing for the development of location-based services such as mapping, navigation, and geofencing.",
+        "Example": "Core Location is like a GPS in your car, constantly providing your current location and direction to help you navigate to your destination."
+    },
+    {
+        "Category": "App and Code Optimisation",
+        "Question": "Compare UITableView and UICollectionView in terms of usage, optimisation, and performance.",
+        "Answer": "UITableView is optimized for vertically scrolling lists, making it simpler for linear data presentation. UICollectionView offers more flexibility and supports both horizontal and vertical scrolling, but requires more setup and can be more complex to optimize.",
+        "Example": "UITableView is like a conveyor belt, perfect for moving items in a straight line. UICollectionView is like a robot arm that can move in any direction, offering more flexibility but needing more control."
+    },
+    {
+        "Category": "App and Code Optimisation",
+        "Question": "What are the differences between Class and Struct in Swift?",
+        "Answer": "Classes are reference types, can inherit from other classes, and have more memory overhead due to reference counting. Structs are value types, don’t support inheritance, and are generally more performant as they are copied rather than referenced.",
+        "Example": "A class is like sharing a document through a cloud service—everyone sees the same document and changes are reflected everywhere. A struct is like emailing a copy of the document to someone—they get their own version, and any changes they make don’t affect the original."
+    },
+    {
+        "Category": "App and Code Optimisation",
+        "Question": "How can you improve Swift class performance?",
+        "Answer": "You can improve Swift class performance by avoiding heavy use of inheritance, reducing the number of properties that need reference counting, and marking classes as 'final' when inheritance is not needed.",
+        "Example": "Improving class performance is like optimizing a car engine—reducing unnecessary parts (inheritance), using lighter materials (final classes), and ensuring efficient fuel use (minimizing reference counting)."
+    },
+    {
+        "Category": "App and Code Optimisation",
+        "Question": "How would you implement an Infinite Scrolling list?",
+        "Answer": "You can implement an Infinite Scrolling list by loading more data as the user scrolls to the bottom of the list, typically using a delegate method to detect when the user has scrolled to the end.",
+        "Example": "Infinite scrolling is like a buffet that keeps replenishing itself every time you get close to finishing your plate. You don’t have to go anywhere; the food (data) just keeps coming."
+    },
+    {
+        "Category": "App and Code Optimisation",
+        "Question": "How can we fix non-smooth scrolling issues?",
+        "Answer": "To fix non-smooth scrolling issues, you can optimize the cell reuse process, preload data asynchronously, and reduce complex UI updates during scrolling.",
+        "Example": "Fixing non-smooth scrolling is like smoothing out a bumpy road by filling in potholes (optimizing cell reuse), repaving the surface (preloading data), and avoiding sudden stops (reducing UI updates)."
+    },
+    {
+        "Category": "App and Code Optimisation",
+        "Question": "How to identify the causes of UI errors in iOS apps? Also, how you can improve UI performance?",
+        "Answer": "You can identify UI errors using debugging tools like Xcode Instruments, logging, and breakpoints. UI performance can be improved by minimizing layout recalculations, using efficient data structures, and optimizing image loading.",
+        "Example": "Identifying UI errors is like using diagnostic tools on a car to find where it’s malfunctioning. Improving performance is like tuning the engine and using high-quality parts to ensure smooth operation."
+    },
+    {
+        "Category": "App and Code Optimisation",
+        "Question": "How can we reduce the iOS app launch time?",
+        "Answer": "You can reduce the app launch time by optimizing the app's startup sequence, lazy loading resources, and minimizing the work done in application(_:didFinishLaunchingWithOptions:).",
+        "Example": "Reducing app launch time is like preparing for a trip by packing light, only taking what you need, and leaving non-essential items for later. This way, you can start your journey quickly without delays."
+    },
+    {
+        "Category": "Dependency Management",
+        "Question": "Difference between SPM, CocoaPods, and Carthage?",
+        "Answer": "SPM (Swift Package Manager), CocoaPods, and Carthage are all dependency managers for iOS projects. SPM is integrated into Xcode and is native to Swift, providing seamless support but with limited features compared to others. CocoaPods centralizes dependencies in a single workspace and automates integration, making it the most popular choice. Carthage is decentralized and focuses on simple integration, leaving developers more control over how dependencies are included.",
+        "Example": "Think of SPM as a built-in store in your kitchen (Xcode) that offers only basic ingredients (dependencies). CocoaPods is like a grocery delivery service that brings everything you need (dependencies and integration) to your door. Carthage is like a local market where you buy ingredients (dependencies) separately and then decide how to mix them yourself."
+    },
+    {
+        "Category": "Persistent Storage",
+        "Question": "What are the different ways to persist data in iOS applications and when to use them?",
+        "Answer": "iOS offers several ways to persist data: UserDefaults for simple key-value pairs, Keychain for sensitive data, Core Data for complex object graphs, SQLite for database-driven apps, and file storage for documents and large data. The choice depends on the complexity, security needs, and size of the data.",
+        "Example": "Persisting data in iOS is like storing items in your house. UserDefaults is like a drawer for small things you need frequently (simple settings). Keychain is like a safe for your valuables (passwords). Core Data is like a filing cabinet for organizing detailed records. SQLite is like a personal library for managing large collections. File storage is like your garage where you store bulky items (documents)."
+    },
+    {
+        "Category": "Persistent Storage",
+        "Question": "What is managed object context? Define delete rules in Core Data with the use cases?",
+        "Answer": "A managed object context is an environment where Core Data objects (managed objects) are created, fetched, updated, and deleted. Delete rules in Core Data define how related data is handled when a managed object is deleted. Options include Cascade (deletes related objects), Nullify (nullifies relationships), Deny (prevents deletion if relationships exist), and No Action (does nothing).",
+        "Example": "Managed object context is like a workspace where you can arrange and edit your files (Core Data objects). The delete rules are like instructions you leave for what happens to related files when you throw away a file: Cascade is like saying 'If you throw this away, also throw away all related documents,' Nullify is like removing all references to the document, Deny is like a rule that prevents deletion if it's still linked to something, and No Action is like just putting the document in the trash but not touching anything else."
+    },
+    {
+        "Category": "Persistent Storage",
+        "Question": "Explain the benefits and limitations of using Core Data as the primary persistence framework in an iOS application?",
+        "Answer": "Core Data provides powerful data management capabilities, including object graph management and complex queries, making it ideal for applications with intricate data models. However, it comes with a steep learning curve and performance overhead, particularly with large datasets. It also requires careful management of multithreading and contexts.",
+        "Example": "Core Data is like having an advanced database system in your app, with built-in tools for sorting, filtering, and relating data. The downside is that you need to know how to use these tools properly, and it can slow down if not optimized."
+    },
+    {
+        "Category": "Concurrency",
+        "Question": "Difference between Operation vs Dispatch Queue and which one should we use.",
+        "Answer": "Operation is a higher-level abstraction that allows for more complex task management, such as dependencies and cancellation. Dispatch Queue is a lower-level construct that offers straightforward task execution but without built-in dependency management. Use Operation when you need to manage complex task flows and Dispatch Queue for simpler, straightforward tasks.",
+        "Example": "Think of Operation as a project manager who handles task assignments, dependencies, and can stop tasks if needed. Dispatch Queue is like a basic task list where you add items, and they get done one by one, with no extra features."
+    },
+    {
+        "Category": "Concurrency",
+        "Question": "Explain Synchronous and Asynchronous operations in Swift.",
+        "Answer": "Synchronous operations block the current thread until the task is complete, ensuring tasks are performed sequentially. Asynchronous operations, on the other hand, allow the current thread to continue executing other tasks while the operation is still running, enabling parallel execution.",
+        "Example": "Synchronous operations are like standing in line at a checkout—each customer waits their turn until the previous one is done. Asynchronous operations are like self-checkout kiosks where everyone can check out at the same time, with no waiting."
+    },
+    {
+        "Category": "Concurrency",
+        "Question": "How does DispatchWorkItem perform actions?",
+        "Answer": "DispatchWorkItem encapsulates a task that you want to execute on a dispatch queue. It allows you to configure, cancel, and reuse the task. You can create a DispatchWorkItem and then submit it to a queue for execution.",
+        "Example": "DispatchWorkItem is like preparing a package (task) that you can send to a delivery service (dispatch queue). You can decide when to send it, track it, or even cancel the delivery if needed."
+    },
+    {
+        "Category": "Concurrency",
+        "Question": "What are the different types of queues provided by GCD?",
+        "Answer": "GCD (Grand Central Dispatch) provides different types of queues: Serial Queues (execute one task at a time), Concurrent Queues (execute multiple tasks simultaneously), and the Main Queue (a special serial queue for UI updates).",
+        "Example": "The different queues are like different lanes in a swimming pool: a serial queue is a single lane where only one swimmer can go at a time, a concurrent queue is like multiple lanes where several swimmers can go at the same time, and the main queue is a VIP lane reserved for special activities like a synchronized swimming performance."
+    },
+    {
+        "Category": "Concurrency",
+        "Question": "Differentiate between dispatch group and dispatch semaphore.",
+        "Answer": "Dispatch Group allows grouping multiple tasks and being notified when all tasks are complete, while Dispatch Semaphore is used to control access to a limited resource, signaling when the resource becomes available.",
+        "Example": "A dispatch group is like organizing a group hike—you start the hike together and only finish when everyone has reached the end. A dispatch semaphore is like a bathroom key at a gas station—only one person can use it at a time, and others must wait until the key is returned."
+    },
+    {
+        "Category": "Concurrency",
+        "Question": "What do you mean by race conditions? What are the techniques you can use to avoid it?",
+        "Answer": "Race conditions occur when two or more threads access shared data simultaneously, leading to unpredictable results. Techniques to avoid race conditions include using locks, serializing access to shared resources, and employing thread-safe data structures.",
+        "Example": "A race condition is like two people trying to edit the same document at the same time without knowing the other is making changes—one's changes might overwrite the other's. To avoid this, you'd either lock the document when one person is editing it or use a system that tracks changes made by each person separately."
+    },
+    {
+        "Category": "Concurrency",
+        "Question": "What is Thread Explosion in Swift?",
+        "Answer": "Thread explosion happens when too many threads are created, leading to excessive context switching and resource contention, ultimately degrading performance. It often occurs when tasks are improperly managed or when too many asynchronous tasks are launched.",
+        "Example": "Thread explosion is like opening too many tabs in a web browser—it slows everything down because each tab (thread) competes for the same limited resources (CPU, memory)."
+    },
+    {
+        "Category": "Memory Management",
+        "Question": "How does ARC work in Swift?",
+        "Answer": "ARC (Automatic Reference Counting) in Swift automatically keeps track of the reference count of instances of classes. When the reference count drops to zero, the instance is deallocated. It helps in managing memory by ensuring that objects are kept alive as long as needed and released when no longer in use.",
+        "Example": "ARC is like a librarian who keeps track of how many people have borrowed a particular book. As long as someone has borrowed the book (reference), it stays on the 'checked out' list. When no one has the book checked out (zero references), it's removed from the list (deallocated)."
+    },
+    {
+        "Category": "Memory Management",
+        "Question": "What is Copy-on-Write? Explain how to customize its implementation?",
+        "Answer": "Copy-on-Write is an optimization technique where a copy of a resource is only made when it is modified. In Swift, this behavior is often seen in value types like arrays and dictionaries. To customize it, you can implement manual copy-on-write logic by checking whether a resource is shared and creating a copy if it’s about to be modified.",
+        "Example": "Copy-on-Write is like sharing a photocopy of a document with others. If someone wants to edit it, they make their own copy first. Otherwise, everyone just uses the same copy, saving resources."
+    },
+    {
+        "Category": "Memory Management",
+        "Question": "How do you debug memory leaks in iOS? Can you walk me through the process of finding and fixing a memory leak in your code?",
+        "Answer": "To debug memory leaks in iOS, use Xcode Instruments' Leaks tool to detect and trace memory leaks. The process involves running your app, observing memory usage, identifying objects that are not being deallocated, and investigating the code to find retain cycles or unbalanced reference counts. Fixing typically involves breaking strong reference cycles or adjusting reference management strategies.",
+        "Example": "Debugging memory leaks is like checking for dripping faucets in a house. You use specialized tools (Xcode Instruments) to find where water (memory) is leaking. Once found, you inspect the pipes (code) to see if there’s a blockage (retain cycle) or if something isn’t shutting off properly (reference imbalance)."
+    },
+    {
+        "Category": "Design Patterns",
+        "Question": "Which UICollectionView API implements the Factory design pattern?",
+        "Answer": "The `dequeueReusableCell(withReuseIdentifier:for:)` method in UICollectionView implements the Factory design pattern. It encapsulates the creation of cells, providing a reusable and efficient way to manage cell objects.",
+        "Example": "This method is like a toy factory where you request a specific type of toy (cell) by giving its name (identifier), and the factory either gives you an existing one or creates a new one as needed."
+    },
+    {
+        "Category": "Design Patterns",
+        "Question": "Explain Factory Design Pattern usage and what problem does this pattern solve.",
+        "Answer": "The Factory Design Pattern is used to create objects without specifying the exact class of the object that will be created. It solves the problem of instantiating objects in a way that doesn’t expose the creation logic and allows for more flexibility and scalability.",
+        "Example": "The Factory Pattern is like ordering a custom-made cake. You don’t need to know how the baker makes it; you just specify what kind of cake you want, and they create it for you. This allows the bakery to make different kinds of cakes without customers needing to know the details."
+    },
+    {
+        "Category": "Application Security",
+        "Question": "What is SSL Pinning and how to implement it in iOS?",
+        "Answer": "SSL Pinning is a security technique used to ensure that an app only communicates with a server it trusts, by embedding the server's SSL certificate in the app itself. This prevents man-in-the-middle attacks by rejecting connections that don’t match the pinned certificate. To implement it in iOS, you can embed the certificate in the app and validate it during the TLS handshake.",
+        "Example": "SSL Pinning is like ensuring that you only accept packages from a delivery person who shows a specific ID. If someone without that ID tries to deliver a package, you refuse it."
+    },
+    {
+        "Category": "Application Security",
+        "Question": "Explain Asymmetric and Symmetric encryption.",
+        "Answer": "Asymmetric encryption uses a pair of keys—one public and one private—where the public key encrypts the data and the private key decrypts it. Symmetric encryption uses a single key for both encryption and decryption. Asymmetric encryption is more secure but slower, while symmetric encryption is faster but requires secure key management.",
+        "Example": "Asymmetric encryption is like having a locked mailbox where anyone can drop a letter (encrypt) using the public key, but only you can open the mailbox (decrypt) with your private key. Symmetric encryption is like a locked box that you and your friend both have a key to—only the two of you can open it."
+    },
+    {
+        "Category": "Application Security",
+        "Question": "What are some best practices for handling user credentials in Swift?",
+        "Answer": "Best practices for handling user credentials in Swift include using the Keychain for secure storage, avoiding hard-coded credentials, using secure APIs, employing SSL/TLS for network communications, and regularly updating security libraries.",
+        "Example": "Handling user credentials is like keeping valuables in a safe (Keychain). You wouldn’t leave the keys lying around (hard-coding credentials) or use a flimsy lock (insecure APIs). You also ensure that the safe is regularly serviced to keep it secure (updating security libraries)."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain Access Controls in Swift.",
+        "Answer": "Access controls in Swift define the scope of access for classes, structures, and functions. The levels are open, public, internal, fileprivate, and private. 'Open' and 'public' allow access from any module, 'internal' is the default and limits access within the same module, 'fileprivate' limits access to the same file, and 'private' restricts access to the enclosing declaration.",
+        "Example": "Access control in Swift is like setting permissions on a shared folder. 'Open' is like giving everyone on the internet access, 'public' is like sharing with everyone in your office, 'internal' is like sharing within your department, 'fileprivate' is sharing only within a specific team (file), and 'private' is like keeping the files to yourself."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What is the difference between == and === in Swift?",
+        "Answer": "'==' is used to check if two instances are equal in value, while '===' is used to check if two instances refer to the same object in memory.",
+        "Example": "'==' is like comparing two books to see if they have the same content, while '===' is like checking if two people are reading from the exact same physical book."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What is Protocol Oriented Programming? How is it beneficial for us in Unit Testing?",
+        "Answer": "Protocol-Oriented Programming (POP) in Swift emphasizes the use of protocols to define the blueprint of methods, properties, and other requirements that suit a particular task. It promotes code reusability and flexibility. In unit testing, POP allows for easy mocking and dependency injection, making tests more isolated and reliable.",
+        "Example": "POP is like defining a list of tasks (protocols) that need to be done. You can then create different people (types) who can perform those tasks. For testing, you can easily swap out the person (type) to test if the tasks (methods) are done correctly."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "How to customly create a Higher-Order function in Swift?",
+        "Answer": "A Higher-Order function is a function that either takes one or more functions as parameters or returns a function. You can create a custom Higher-Order function by defining a function that accepts another function as a parameter and applies it to data.",
+        "Example": "Creating a Higher-Order function is like writing a recipe (function) that can take different ingredients (other functions) and produce a dish (result). For example, you might write a recipe that takes any kind of pasta and sauce and then returns a completed dish."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain KVO with an example in Swift.",
+        "Answer": "KVO (Key-Value Observing) allows objects to observe changes to the properties of other objects. You can register an observer to a property and get notified whenever that property changes.",
+        "Example": "KVO is like subscribing to updates from a news service. Whenever there's breaking news (property change), the service notifies you (observer). For instance, if you’re monitoring a stock price, you get notified whenever the price changes."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What is Protocol Composition in Swift?",
+        "Answer": "Protocol Composition allows you to combine multiple protocols into one requirement. This is useful when you want a type to conform to multiple protocols but don't want to create a new protocol that inherits from all those protocols.",
+        "Example": "Protocol Composition is like combining job roles. For example, you might require someone to be both a writer and an editor (conforms to both protocols). Instead of creating a new title, you simply say the person needs to be both."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What is Capture lists in Swift?",
+        "Answer": "Capture lists are used in Swift to control how values are captured in closures. They prevent strong reference cycles by specifying how the variables should be captured—typically as weak or unowned references.",
+        "Example": "Capture lists are like setting up rules for how things are stored in a box (closure). For example, you might say, 'store this item lightly (weak) so it doesn’t get stuck inside.'"
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain Recursive enumeration and Associated values.",
+        "Answer": "Recursive enumerations are enums that have cases where the associated values are of the same enum type, allowing them to reference themselves. Associated values allow storing additional data in enum cases.",
+        "Example": "Recursive enumeration is like a directory structure where folders can contain other folders of the same type. Associated values are like folders that can store files of different types."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain @autoclosure in Swift with an example.",
+        "Answer": "@autoclosure automatically wraps an expression in a closure, deferring its execution until it's explicitly called. It’s often used to delay potentially expensive operations until they’re actually needed.",
+        "Example": "@autoclosure is like promising to do a task only if someone explicitly asks for it, rather than doing it upfront. For example, a coupon (autoclosure) only gives a discount (executes) when used, rather than applying automatically."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain the concepts of delegate & protocol and notification and observer in iOS.",
+        "Answer": "Delegates and protocols in iOS define a way for an object to communicate with another by delegating responsibilities. Notifications and observers are used to broadcast messages to multiple objects that may be interested in them.",
+        "Example": "Delegates and protocols are like hiring a secretary (delegate) to handle specific tasks according to the company’s rules (protocol). Notifications and observers are like sending out a company-wide email (notification), where anyone interested (observer) can act on it."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain the purpose of Hashable and why we should inherit from Equatable.",
+        "Answer": "Hashable is required for objects to be used in collections like dictionaries or sets because it provides a hash value for an object. Hashable inherits from Equatable because objects that are equal must have the same hash value.",
+        "Example": "Hashable is like giving each employee a unique ID so they can be found quickly in a database. Equatable ensures that employees with the same details (name, age, etc.) are considered the same person."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What are generics in Swift? Can you give an example of when you would use them?",
+        "Answer": "Generics allow you to write flexible, reusable functions and types that can work with any type. For example, you can create a function that sorts an array regardless of the type of elements in the array, as long as they conform to a comparable protocol.",
+        "Example": "Generics are like creating a universal remote that can control any brand of TV, instead of having a different remote for each TV."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Difference between Generics and Opaque types in Swift.",
+        "Answer": "Generics allow a function or type to work with any type that meets the criteria, while opaque types allow a function to return a specific, but hidden type. Opaque types are more restrictive because they hide the underlying type.",
+        "Example": "Generics are like saying 'I’ll accept any brand of phone as long as it’s a smartphone.' Opaque types are like saying 'I’ll return a phone, but I won’t tell you which brand it is.'"
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Difference between map and compactMap in Swift.",
+        "Answer": "The `map` function applies a transformation to each element in a collection and returns an array of the transformed elements. `compactMap` does the same but also removes any `nil` values, returning a non-optional array.",
+        "Example": "`map` is like applying a change to every item in a list. `compactMap` is like applying a change and then filtering out any items that don’t meet the criteria."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What is Conditional Conformance?",
+        "Answer": "Conditional Conformance allows a generic type to conform to a protocol only if certain conditions are met, such as the type’s parameters conforming to the protocol.",
+        "Example": "Conditional Conformance is like saying 'I will be a team leader only if all my team members are experienced.'"
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Why reuseidentifier is important in UITableView.",
+        "Answer": "The reuseIdentifier is used to optimize memory usage by reusing table view cells that have scrolled off-screen. It helps improve performance and reduce memory overhead by avoiding the creation of new cells each time.",
+        "Example": "reuseIdentifier is like reusing a shopping cart in a store—once a customer is done with it, the cart (cell) is given to the next customer instead of getting a new cart each time."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What are the most effective ways to write clean code?",
+        "Answer": "Effective ways to write clean code include using meaningful names, writing small and focused functions, avoiding code duplication, using comments wisely, and adhering to coding standards and guidelines.",
+        "Example": "Writing clean code is like organizing your workspace. If everything has a place and is labeled clearly, it’s easier to find and use things, making your work more efficient."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What is the final keyword and how does it improve run-time performance?",
+        "Answer": "The `final` keyword prevents a class from being subclassed or a method from being overridden. This allows the compiler to optimize the code more efficiently, improving run-time performance.",
+        "Example": "Using `final` is like sealing a recipe so no one can modify it. This makes the cooking process (execution) faster because the instructions are guaranteed to be followed exactly as written."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What is the difference between Static Dispatch and Dynamic Dispatch?",
+        "Answer": "Static Dispatch is determined at compile-time, meaning the method to be called is known before execution. Dynamic Dispatch is determined at runtime, typically using the Objective-C runtime, allowing methods to be overridden in subclasses.",
+        "Example": "Static Dispatch is like knowing exactly what route to take before you leave the house. Dynamic Dispatch is like deciding which route to take based on traffic conditions while you're driving."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain SOLID principles.",
+        "Answer": "SOLID principles are five design principles for writing clean and maintainable code: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. These principles help in making the codebase more understandable, flexible, and scalable.",
+        "Example": "SOLID principles are like following a good architecture when building a house. Each part of the house has a clear purpose (Single Responsibility), it can be expanded without tearing down walls (Open/Closed), any improvements won’t change the original functionality (Liskov Substitution), specialized tasks are handled by specific tools (Interface Segregation), and all parts of the house rely on solid foundations (Dependency Inversion)."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "What is the difference between URL Schemes and Universal Links?",
+        "Answer": "URL Schemes allow apps to be opened via a specific URL, but are less secure because any app can claim the scheme. Universal Links are more secure and flexible, allowing links to open in the app or fallback to a webpage if the app isn’t installed.",
+        "Example": "URL Schemes are like having a unique phone number that anyone can call, while Universal Links are like having a private number that only a trusted contact list can use."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain Equatable, Hashable, and Comparable protocol in Swift.",
+        "Answer": "Equatable allows types to be compared for equality. Hashable allows types to be used in hashed collections like dictionaries. Comparable allows types to be compared in terms of greater or lesser values.",
+        "Example": "Equatable is like comparing two objects to see if they are the same, Hashable is like giving objects an ID number for easy look-up, and Comparable is like ranking objects in order from smallest to largest."
+    },
+    {
+        "Category": "Advanced Swift",
+        "Question": "Explain the Liskov Substitution principle.",
+        "Answer": "The Liskov Substitution Principle states that objects of a superclass should be replaceable with objects of a subclass without altering the correctness of the program. It ensures that derived classes extend base classes without changing their behavior.",
+        "Example": "Liskov Substitution is like being able to swap out a regular light bulb with an LED bulb without having to change the lamp. The new bulb (subclass) works just as well as the old one (superclass), but might be more efficient."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "What is AppClip and how is it used in iOS?",
+        "Answer": "App Clips are lightweight versions of apps designed for quick and specific tasks, such as ordering food or renting a scooter. They can be accessed via links, NFC tags, or QR codes, allowing users to perform tasks without downloading the full app.",
+        "Example": "App Clips are like having a mini pop-up store that lets you buy a product quickly without entering the full store (downloading the entire app)."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "What are Property Qualifiers in Swift?",
+        "Answer": "Property Qualifiers in Swift, such as `weak`, `unowned`, and `lazy`, define how properties behave in terms of memory management and initialization. For example, `weak` is used to avoid strong reference cycles, `unowned` is used when the reference will never be nil, and `lazy` delays initialization until the property is accessed.",
+        "Example": "Property Qualifiers are like setting rules for how you store items. 'weak' is like storing an item lightly so it can be easily removed, 'unowned' is like marking something as irreplaceable (it’s always there), and 'lazy' is like waiting until you actually need something before fetching it from storage."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "What is APNS and how does it work?",
+        "Answer": "APNS (Apple Push Notification Service) is the service used to send push notifications to iOS devices. It delivers notifications from a server to an iOS device, allowing apps to display messages, update badges, or trigger sounds.",
+        "Example": "APNS is like a postal service for apps, delivering letters (notifications) from the post office (server) directly to your mailbox (device)."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "What are the Background modes in iOS?",
+        "Answer": "Background modes in iOS allow apps to perform specific tasks even when they are not in the foreground. Examples include background audio, VoIP, location updates, and background fetch.",
+        "Example": "Background modes are like allowing certain machines in a factory to keep running even after the main power is turned off. These machines continue their tasks (like playing music or tracking location) in the background."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "Explain how iOS app state restoration works.",
+        "Answer": "iOS app state restoration allows apps to save their current state and restore it when the app is relaunched. This is useful for resuming where the user left off after the app was terminated by the system.",
+        "Example": "App state restoration is like bookmarking a page in a book. When you reopen the book (app), you can immediately start reading from where you left off."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "What are important factors to be considered for improving iOS Apps performance?",
+        "Answer": "Important factors for improving iOS app performance include optimizing memory usage, minimizing CPU load, using efficient data structures, reducing network requests, optimizing image and asset loading, and ensuring smooth UI rendering.",
+        "Example": "Improving app performance is like tuning a car for a race. You make sure the engine runs efficiently (CPU), the fuel consumption is optimized (memory), and the car is lightweight (efficient data structures) for the best performance."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "Explain the UIViewRepresentable protocol and its use in SwiftUI.",
+        "Answer": "The UIViewRepresentable protocol allows you to integrate UIKit components into SwiftUI. It’s useful when you need to use a UIKit view or controller that doesn’t have a direct SwiftUI equivalent.",
+        "Example": "UIViewRepresentable is like using an adapter to plug a foreign device into your local power socket. It lets you use tools from the old system (UIKit) in the new environment (SwiftUI)."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "What is inout Parameter in Swift?",
+        "Answer": "An `inout` parameter allows a function to modify the value of a variable passed into it. The changes made to the parameter inside the function are reflected in the original variable.",
+        "Example": "`inout` is like handing someone a piece of paper and allowing them to write directly on it. Whatever they write on the paper is what you end up with."
+    },
+    {
+        "Category": "Miscellaneous",
+        "Question": "How can you extend or modify the UIResponder Chain in your application?",
+        "Answer": "You can extend or modify the UIResponder Chain by overriding `nextResponder` in a custom UIView or UIViewController. This allows you to change the flow of event handling by specifying a different responder.",
+        "Example": "Modifying the UIResponder Chain is like rerouting phone calls in an office. Normally, calls go from one desk to another in a set order, but you can change the order to reroute calls as needed."
+    },
+    {
+        "Category": "System Design Round",
+        "Question": "How to approach System Design Round?",
+        "Answer": "Approach the System Design Round by first understanding the problem requirements, then breaking down the system into components such as the database, services, APIs, and front-end. Consider scalability, fault tolerance, and performance while designing. Explain your thought process clearly and be open to feedback and iteration.",
+        "Example": "System design is like planning the layout of a new building. You need to consider how people will move through the space (user flow), ensure there’s enough support for growth (scalability), and make sure the structure is safe and reliable (fault tolerance)."
+    },
+    {
+        "Category": "System Design Round",
+        "Question": "For any OTT platform like Amazon Prime, Create a Downloader that can download and save the video to watch offline. The user can pause, resume, delete, or cancel the video that is downloading.",
+        "Answer": "To design a Downloader for an OTT platform, you need to create a download manager that handles video files. The manager should support features like pause, resume, delete, and cancel. Use URLSession for network operations and Core Data or FileManager for storing download state and files locally. Ensure thread safety and handle edge cases like network interruptions and insufficient storage.",
+        "Example": "Designing a Downloader is like creating a personal video recorder that lets users control their recording. They can start recording, pause to take a break, resume later, or decide to delete the recording if they don’t need it anymore."
+    }
+    
+]
+
+ 
+ 
