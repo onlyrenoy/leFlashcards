@@ -12,8 +12,9 @@ class Questions: UIViewController {
     var titleArea = UIView()
     var titleLabel = UILabel()
     
+    var viewModel: QuestionsViewModel! // Added viewModel property
     var collection: UICollectionView!
-    var list: [Item] = []
+    // var list: [Item] = [] // Removed list property
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,27 +56,39 @@ class Questions: UIViewController {
         |-0-collection-0-|,
         0
         )
+        // Reload data in case configure was called before collection view was ready
+        // or if using a storyboard/xib where outlets might not be set when configure is called.
+        if viewModel != nil { // Ensure viewModel is configured
+            collection.reloadData()
+        }
     }
     
     func configure(with cat: Categories) {
-        titleLabel.text = cat.rawValue.uppercased()
-        self.list = QuestionManager.shared.list(cat)
+        viewModel = QuestionsViewModel()
+        viewModel.configure(with: cat)
+        titleLabel.text = viewModel.getCategoryName().uppercased()
+        // If collection is already initialized, reload it.
+        // This handles cases where configure is called after viewDidLoad.
+        if collection != nil {
+            collection.reloadData()
+        }
     }
     
 }
 
 extension Questions: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        list.count
+            return viewModel.numberOfQuestions()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.reuseIdentifier, for: indexPath) as? HomeCell {
-            cell.configure(with: list[indexPath.row].Question)
-            return cell
-        }
-        
-        return UICollectionViewCell()
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.reuseIdentifier, for: indexPath) as? HomeCell {
+                if let question = viewModel.question(at: indexPath.row) {
+                    cell.configure(with: question.Question) // Assuming HomeCell's configure can take a String
+                }
+                return cell
+            }
+            return UICollectionViewCell()
     }
     
     
@@ -83,9 +96,13 @@ extension Questions: UICollectionViewDataSource{
 
 extension Questions: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = QuestoinAnswerDetail(item: list[indexPath.row])
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+            if let questionItem = viewModel.getSelectedQuestion(at: indexPath.row) {
+                // The original code used QuestoinAnswerDetail, ensure this class exists and its initializer is correct.
+                // Assuming QuestoinAnswerDetail is correctly named and available.
+                let vc = QuestoinAnswerDetail(item: questionItem) 
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
+            }
     }
 }
 extension Questions: UICollectionViewDelegateFlowLayout {

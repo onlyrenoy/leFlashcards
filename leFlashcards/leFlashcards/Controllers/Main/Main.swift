@@ -174,16 +174,13 @@ class ListCard: UIView {
 
 class Main: UIViewController {
     
+    var viewModel: MainViewModel! // Added viewModel property
     var titleLabel = UILabel()
     
-    var totalCards = DashboardCard(title: "Total Cards",
-                                   count: "\(QuestionManager.shared.interViewItems.count)",
-                                   color: .systemPink)
-    
-    var totalDecks = DashboardCard(title: "Decks",
-                                   count: "1",
-                                   color: .orange)
-    var listElement = ListCard(title: "iOS")
+    // Changed to implicitly unwrapped optionals, removed direct initialization
+    var totalCards: DashboardCard! 
+    var totalDecks: DashboardCard!
+    var listElement: ListCard! 
     
     var decks = UILabel() // to collection in future
     
@@ -193,20 +190,34 @@ class Main: UIViewController {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
+        viewModel = MainViewModel() // Initialize ViewModel
+
         self.view.backgroundColor = .white
         
         titleLabel.text = "dashboard".uppercased()
         titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
         titleLabel.textColor = .black
         
-        decks.text = "Decks".uppercased()
+        // Initialize cards with data from ViewModel
+        totalCards = DashboardCard(title: "Total Cards",
+                                   count: "\(viewModel.totalCardCount)",
+                                   color: .systemPink)
+    
+        totalDecks = DashboardCard(title: "Decks",
+                                   count: "\(viewModel.totalDeckCount)",
+                                   color: .orange)
+        
+        listElement = ListCard(title: viewModel.deckTitle) // Initialize listElement
+
+        decks.text = "Decks".uppercased() // This "Decks" label seems static
         decks.font = .systemFont(ofSize: 16,
                                  weight: .bold)
         decks.textColor = .black
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(openDeck))
-        listElement.addGestureRecognizer(tap)
+        listElement.addGestureRecognizer(tap) // listElement must be initialized before this line
         
+        // Ensure all views are initialized before being added as subviews
         view.subviews(titleLabel, totalCards, totalDecks, decks, listElement, buttons)
         
         view.layout(

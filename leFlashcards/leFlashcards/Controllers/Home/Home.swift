@@ -9,12 +9,16 @@ import Foundation
 import UIKit
 
 class Home: UIViewController {
+    var viewModel: HomeViewModel! // Added viewModel property
     var titleArea = UIView()
     var titleLabel = UILabel()
     var collection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel = HomeViewModel() // Initialize the viewModel
+        viewModel.fetchCategories() // Fetch categories
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.view.backgroundColor = .white
@@ -61,26 +65,29 @@ class Home: UIViewController {
 
 extension Home: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        QuestionManager.shared.requestCategories().count
+            return viewModel.numberOfCategories()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.reuseIdentifier, for: indexPath) as? HomeCell {
-            cell.configure(with: QuestionManager.shared.requestCategories()[indexPath.row])
-            return cell
-        }
-        
-        return UICollectionViewCell()
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.reuseIdentifier, for: indexPath) as? HomeCell {
+                if let category = viewModel.category(at: indexPath.row) {
+                    cell.configure(with: category)
+                }
+                return cell
+            }
+            return UICollectionViewCell()
     }
 }
 
 extension Home: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let navigationController = self.navigationController {
-            let x = Questions()
-            x.configure(with: QuestionManager.shared.requestCategories()[indexPath.row])
-            navigationController.pushViewController(x, animated: true)
-        }
+            if let category = viewModel.getSelectedCategory(at: indexPath.row) {
+                if let navigationController = self.navigationController {
+                    let questionsVC = Questions() // Assuming Questions is the correct name
+                    questionsVC.configure(with: category)
+                    navigationController.pushViewController(questionsVC, animated: true)
+                }
+            }
     }
 }
 

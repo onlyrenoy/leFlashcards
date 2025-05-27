@@ -9,34 +9,8 @@ import UIKit
 import AVFoundation
 
 class QuestoinAnswerDetail: UIViewController {
-    enum CurrentState {
-        case question
-        case answer
-        case example
-    }
-    
-    var currentState: CurrentState = .question {
-        didSet {
-            switch currentState {
-            case .question:
-                currentCard.text = "QUESTION".uppercased()
-                buttonAreaText.text = "Go to Answer".uppercased()
-                readButton.alpha = 0
-            case .answer:
-                currentCard.text = "ANSWER".uppercased()
-                buttonAreaText.text = "see Example".uppercased()
-                UIView.animate(withDuration: 0.1) {
-                    self.readButton.alpha = 1
-                }
-            case .example:
-                currentCard.text = "EXAMPLE".uppercased()
-                buttonAreaText.text = "check Question".uppercased()
-                UIView.animate(withDuration: 0.1) {
-                    self.readButton.alpha = 1
-                }
-            }
-        }
-    }
+    var viewModel: QuestionAndAnswersViewModel! // Added viewModel property
+    // Removed CurrentState enum and currentState property
     
     var close = UIButton()
     
@@ -59,14 +33,14 @@ class QuestoinAnswerDetail: UIViewController {
     var buttonAreaText = UILabel()
     
     var readButton = UIImageView()
-    let synthesizer = AVSpeechSynthesizer()
+    // Removed synthesizer property
     
     let wholeWidth = UIScreen.main.bounds.width
     
-    var item: Item
+    // Removed item property
     
     internal init(item: Item) {
-        self.item = item
+        self.viewModel = QuestionAndAnswersViewModel(item: item) // Updated initializer
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -228,19 +202,38 @@ class QuestoinAnswerDetail: UIViewController {
         
         
         
-        question.text = item.Question
-        answer.text = item.Answer
-        example.text = item.Example
+        question.text = viewModel.getItem().Question
+        answer.text = viewModel.getItem().Answer
+        example.text = viewModel.getItem().Example
+        
+        updateUIFromViewModel() // Call to set initial UI state
     }
     
-    @objc
-    func closeTapped() {
-        self.dismiss(animated: true)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.stopSpeaking()
     }
     
-    @objc
-    func questionTap() {
-        currentState = .question
+    // MARK: - UI Update and Animation Helpers
+    func updateUIFromViewModel() {
+        currentCard.text = viewModel.currentCardTitle
+        buttonAreaText.text = viewModel.buttonAreaText
+        
+        UIView.animate(withDuration: 0.1) { // Animate readButton visibility
+             self.readButton.alpha = self.viewModel.showReadButton ? 1 : 0
+        }
+        
+        switch viewModel.currentState {
+        case .question:
+            animateToQuestionState()
+        case .answer:
+            animateToAnswerState()
+        case .example:
+            animateToExampleState()
+        }
+    }
+
+    private func animateToQuestionState() {
         UIView.animate(withDuration: 0.1) {
             self.questionLayer.alpha = 0
             self.answerLayer.alpha = 1
@@ -250,15 +243,15 @@ class QuestoinAnswerDetail: UIViewController {
             self.answerContaner.transform = CGAffineTransform(translationX: 0, y: 120)
             self.exampleContaner.transform = CGAffineTransform(translationX: 0, y: 120)
             
-            self.view.layoutIfNeeded()
+            self.view.layoutIfNeeded() // May not be needed here if only transform/alpha changes
             self.view.bringSubviewToFront(self.exampleContaner)
             self.view.bringSubviewToFront(self.answerContaner)
             self.view.bringSubviewToFront(self.questionContaner)
         } completion: { finished in
             UIView.animate(withDuration: 0.3) {
-                self.questionContaner.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.answerContaner.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.exampleContaner.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.questionContaner.transform = .identity
+                self.answerContaner.transform = .identity
+                self.exampleContaner.transform = .identity
                 
                 self.questionContaner.frame.origin.x = 20
                 self.answerContaner.frame.origin.x = 30
@@ -270,13 +263,10 @@ class QuestoinAnswerDetail: UIViewController {
             }
         }
     }
-    
-    @objc
-    func answerTap() {
-        currentState = .answer
-        
-        exampleContaner.backgroundColor = UIColor(hexString: "B2CAF8")
-        
+
+    private func animateToAnswerState() {
+        // Original answerTap animation
+        exampleContaner.backgroundColor = UIColor(hexString: "B2CAF8") // This seems view specific, keep here
         UIView.animate(withDuration: 0.1) {
             self.questionLayer.alpha = 1
             self.answerLayer.alpha = 0
@@ -292,9 +282,9 @@ class QuestoinAnswerDetail: UIViewController {
             self.view.bringSubviewToFront(self.answerContaner)
         } completion: { finished in
             UIView.animate(withDuration: 0.3) {
-                self.questionContaner.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.answerContaner.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.exampleContaner.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.questionContaner.transform = .identity
+                self.answerContaner.transform = .identity
+                self.exampleContaner.transform = .identity
                 
                 self.questionContaner.frame.origin.x = 30
                 self.answerContaner.frame.origin.x = 20
@@ -306,12 +296,10 @@ class QuestoinAnswerDetail: UIViewController {
             }
         }
     }
-    
-    @objc
-    func exampleTap() {
-        currentState = .example
-        
-        exampleContaner.backgroundColor = .white
+
+    private func animateToExampleState() {
+        // Original exampleTap animation
+        exampleContaner.backgroundColor = .white // This seems view specific, keep here
         UIView.animate(withDuration: 0.1) {
             self.questionLayer.alpha = 1
             self.answerLayer.alpha = 1
@@ -327,9 +315,9 @@ class QuestoinAnswerDetail: UIViewController {
             self.view.bringSubviewToFront(self.exampleContaner)
         } completion: { finished in
             UIView.animate(withDuration: 0.3) {
-                self.questionContaner.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.answerContaner.transform = CGAffineTransform(translationX: 0, y: 0)
-                self.exampleContaner.transform = CGAffineTransform(translationX: 0, y: 0)
+                self.questionContaner.transform = .identity
+                self.answerContaner.transform = .identity
+                self.exampleContaner.transform = .identity
                 
                 self.questionContaner.frame.origin.x = 40
                 self.answerContaner.frame.origin.x = 30
@@ -342,39 +330,41 @@ class QuestoinAnswerDetail: UIViewController {
         }
     }
     
+    // MARK: - Actions
+    @objc
+    func closeTapped() {
+        viewModel.stopSpeaking()
+        self.dismiss(animated: true)
+    }
+    
+    @objc
+    func questionTap() {
+        viewModel.currentState = .question
+        updateUIFromViewModel()
+    }
+    
+    @objc
+    func answerTap() {
+        viewModel.currentState = .answer
+        updateUIFromViewModel()
+    }
+    
+    @objc
+    func exampleTap() {
+        viewModel.currentState = .example
+        updateUIFromViewModel()
+    }
+    
     @objc
     func buttonAreaTap() {
-        synthesizer.stopSpeaking(at: .word)
-        switch currentState {
-        case .question:
-           answerTap()
-        case .answer:
-            exampleTap()
-        case .example:
-            questionTap()
-        }
+        viewModel.transitionState()
+        updateUIFromViewModel()
     }
     
     
     @objc
     func answerVoice() {
-        var utterance: AVSpeechUtterance?
-        
-        switch currentState {
-        case .question:
-            break
-        case .answer:
-            utterance = AVSpeechUtterance(string: answer.text)
-        case .example:
-            utterance = AVSpeechUtterance(string: example.text)
-        }
-        
-        utterance?.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
-        utterance?.rate = 0.4
-        if let utta = utterance {
-            synthesizer.speak(utta)
-        }
-        
+        viewModel.speakCurrentText()
     }
 }
 
