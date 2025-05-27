@@ -1,100 +1,29 @@
 import Foundation
-import AVFoundation // For AVSpeechSynthesizer, if logic moves here
+import Combine
 
-enum QnAState {
-    case question
-    case answer
-    case example
-}
+// This ViewModel will now manage a list of Q&A items for a category.
+// The previous single-item logic with states and text-to-speech is removed for this scope.
+// If that functionality is needed, it should be in a different ViewModel/View.
 
-class QuestionAndAnswersViewModel {
-    private var item: Item
-    
-    var currentState: QnAState = .question {
-        didSet {
-            updateStateDerivedProperties()
-        }
-    }
-    
-    // Properties for the View
-    var currentCardTitle: String = "QUESTION"
-    var currentTextContent: String = ""
-    var buttonAreaText: String = "Go to Answer"
-    var showReadButton: Bool = false
-    
-    // Text-to-speech
-    let synthesizer = AVSpeechSynthesizer()
+class QuestionAndAnswersViewModel: ObservableObject {
+    @Published var items: [Item] = []
+    @Published var category: Categories? = nil // Optional: if the VM needs to know its category
 
     // MARK: - Initialization
-    init(item: Item) {
-        self.item = item
-        // Set initial text content
-        self.currentTextContent = item.Question
-        updateStateDerivedProperties() // Ensure all properties are set based on initial state
-    }
-    
-    // MARK: - State Management
-    func transitionState() {
-        synthesizer.stopSpeaking(at: .immediate) // Stop any ongoing speech before transition
-        switch currentState {
-        case .question:
-            currentState = .answer
-        case .answer:
-            currentState = .example
-        case .example:
-            currentState = .question
-        }
-    }
-    
-    private func updateStateDerivedProperties() {
-        switch currentState {
-        case .question:
-            currentCardTitle = "QUESTION"
-            currentTextContent = item.Question
-            buttonAreaText = "Go to Answer".uppercased()
-            showReadButton = false
-        case .answer:
-            currentCardTitle = "ANSWER"
-            currentTextContent = item.Answer
-            buttonAreaText = "See Example".uppercased()
-            showReadButton = true
-        case .example:
-            currentCardTitle = "EXAMPLE"
-            currentTextContent = item.Example
-            buttonAreaText = "Check Question".uppercased()
-            showReadButton = true
-        }
-    }
+    // The ViewModel can be initialized empty or with items directly.
+    init() {}
 
-    // MARK: - Data Access
-    func getItem() -> Item {
-        return item
-    }
-
-    func getTextForSpeech() -> String {
-        switch currentState {
-        case .question:
-            return "" // Or item.Question if readable
-        case .answer:
-            return item.Answer
-        case .example:
-            return item.Example
-        }
+    // MARK: - Data Loading
+    func loadQAs(items: [Item], category: Categories? = nil) {
+        self.items = items
+        self.category = category
+        // If Item is not Identifiable and we need stable IDs for a List,
+        // we might need to wrap them in a struct that is Identifiable.
+        // For now, assuming Item.Question or similar will be used as id in the View,
+        // or Item itself will be made Identifiable.
     }
     
-    // MARK: - Actions
-    func speakCurrentText() {
-        let textToSpeak = getTextForSpeech()
-        if textToSpeak.isEmpty { return }
-        
-        synthesizer.stopSpeaking(at: .immediate) // Stop previous before starting new
-        let utterance = AVSpeechUtterance(string: textToSpeak)
-        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact") // Example voice
-        utterance.rate = 0.4 // Example rate
-        synthesizer.speak(utterance)
-    }
-    
-    func stopSpeaking() {
-        synthesizer.stopSpeaking(at: .immediate)
-    }
+    // Any other logic related to managing or filtering the list of Q&As can go here.
+    // For example, filtering, searching, etc.
+    // For now, it's primarily a data container.
 }

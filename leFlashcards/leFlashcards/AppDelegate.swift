@@ -7,7 +7,7 @@
 
 import UIKit
 
-@_exported import Stevia
+// @_exported import Stevia // Removed Stevia import
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,11 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let home = UINavigationController(rootViewController: Main())
-        home.navigationBar.tintColor = .white
-        self.window?.rootViewController = home
-        self.window?.makeKeyAndVisible()
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        let home = UINavigationController(rootViewController: Main())
+//        home.navigationBar.tintColor = .white
+//        self.window?.rootViewController = home
+//        self.window?.makeKeyAndVisible()
         
         return true
     }

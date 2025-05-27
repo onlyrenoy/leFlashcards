@@ -5,7 +5,7 @@
 //  Created by Renoy Chowdhury on 17/07/24.
 //
 
-import UIKit
+import Foundation // UIKit is not needed here
 
 class QuestionManager {
     static var shared = QuestionManager()
@@ -63,9 +63,15 @@ enum Categories: String, CaseIterable, Codable {
     case advancedSwift = "Advanced Swift"
     case miscellaneous = "Miscellaneous"
     case systemDesignRound = "System Design Round"
+    
+    // Make Categories Identifiable for use in SwiftUI Lists
+    var id: String { self.rawValue }
 }
 
-struct Item: Codable {
+struct Item: Codable, Identifiable {
+    // Using Question as ID. Ensure questions are unique or use a UUID if not.
+    var id: String { Question }
+    
     var Category: Categories
     var Question: String
     var Answer: String
